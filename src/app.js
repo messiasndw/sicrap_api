@@ -7,7 +7,6 @@ import cors from 'cors'
 dotenv.config()
 const app = express()
 app.use(cors())
-console.log(process.env.DB_CONNECTION+process.env.DB_HOST+'/'+process.env.DB_DATABASE)
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
  

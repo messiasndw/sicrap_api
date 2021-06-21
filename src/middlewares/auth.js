@@ -27,11 +27,7 @@ export default (req, res, next) => {
         }
 
         const user = await User.findById(decoded.id)
-        console.log(user)
         if (!user) res.status(401).send(response)
-
-        delete user._doc.password
-        delete user._doc._id
 
         req.body.user = {...user._doc}
         return next()

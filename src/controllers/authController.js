@@ -28,11 +28,11 @@ const authController = {
     },
 
     login: async (req,res) => {
+
         const {email,password} = req.body
-        const result = await bcrypt.hash(password, 10)
-        console.log(result)
-        const user = await User.findOne({email:email})
-        // return res.status(401).send({user})
+
+        const user = await User.findOne({email:email}).select("+password")
+
         if(!user) return res.status(401).send({ok: false, msg: 'Email not registered.'})
 
         const isValidPassword = await bcrypt.compare(password, user.password)
@@ -47,8 +47,8 @@ const authController = {
     },
 
     me: async (req,res) => {
-        const products = await User.find()
         const {user} = req.body
+        delete user._id
         return res.status(200).send({ok: true, me: user, msg: ''})
     },
 
